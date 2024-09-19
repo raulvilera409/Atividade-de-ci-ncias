@@ -162,4 +162,32 @@
             resposta2: document.getElementById('resposta2').value,
             resposta3: document.getElementById('resposta3').value,
             resposta4: document.getElementById('resposta4').value,
-            resposta5: document.getElementById('resposta
+            resposta5: document.getElementById('resposta5').value,
+            resposta6: document.getElementById('resposta6').value,
+            resposta7: document.getElementById('resposta7').value,
+            resposta8: document.getElementById('resposta8').value,
+            resposta9: document.getElementById('resposta9').value,
+            resposta10: document.getElementById('resposta10').value
+        };
+
+        // ID da planilha do Google
+        var spreadsheetId = '16PQkpPICh5hwjIor9HeQ6LRHWiETfmOi_tJpiJ6EQyo';
+        var url = `https://script.google.com/macros/s/${spreadsheetId}/exec`;
+
+        fetch(url, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(respostas)
+        }).then(function(response) {
+            alert('Respostas enviadas com sucesso!');
+        }).catch(function(error) {
+            alert('Ocorreu um erro ao enviar as respostas.');
+        });
+    }
+    </script>
+
+</body>
+</html>
