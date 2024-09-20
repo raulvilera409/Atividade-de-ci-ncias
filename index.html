@@ -64,15 +64,17 @@
             background-color: #45a049;
         }
 
-        .image-container, .chart-container {
-            text-align: center;
-            margin: 20px 0;
+        /* Feedback visual de respostas */
+        .correto {
+            background-color: lightblue;
+            color: blue;
         }
 
-        canvas {
-            background-color: white;
-            border-radius: 5px;
+        .incorreto {
+            background-color: lightcoral;
+            color: red;
         }
+
     </style>
 </head>
 <body>
@@ -95,7 +97,7 @@
 
         <!-- Questões Discursivas -->
         <div class="question">
-            <h3><b>1.</b> Mudanças climáticas globais têm gerado uma alteração nos habitats de diversas espécies. Como resultado, populações de uma mesma espécie, geograficamente isoladas, podem evoluir de forma diferenciada em resposta às condições ambientais locais. Explique como o isolamento geográfico pode levar à especiação, considerando o impacto das mudanças climáticas nos ambientes naturais.</h3>
+            <h3><b>1.</b> Mudanças climáticas globais têm gerado uma alteração nos habitats de diversas espécies. Explique como o isolamento geográfico pode levar à especiação, considerando o impacto das mudanças climáticas nos ambientes naturais.</h3>
             <textarea id="resposta1" name="resposta1" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
@@ -170,25 +172,35 @@
             resposta10: document.getElementById('resposta10').value
         };
 
-        // ID da planilha do Google
-        var spreadsheetId = '16PQkpPICh5hwjIor9HeQ6LRHWiETfmOi_tJpiJ6EQyo';
-        var url = `https://script.google.com/macros/s/AKfycbxhFEvZ39uTzLAwTdLRRb_M0XLken_NtZkn_UHdL3QsYEWnwAlG0ZCiLJRtUuH3jTG_/exec`;
+        // URL do Google Apps Script que processa as respostas e envia o feedback
+        var url = 'https://script.google.com/macros/s/AKfycbxhFEvZ39uTzLAwTdLRRb_M0XLken_NtZkn_UHdL3QsYEWnwAlG0ZCiLJRtUuH3jTG_/exec';
 
         fetch(url, {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(respostas)
         }).then(function(response) {
-            alert('Respostas enviadas com sucesso!');
+            return response.json(); // Espera o feedback do servidor
+        }).then(function(data) {
+            var feedback = data.feedback;
+
+            // Aplica o feedback visual para cada resposta
+            for (var i = 1; i <= feedback.length; i++) {
+                var respostaElement = document.getElementById('resposta' + i);
+                respostaElement.className = feedback[i - 1]; // Aplica "correto" ou "incorreto"
+            }
+
+            alert('Respostas corrigidas!');
         }).catch(function(error) {
             alert('Ocorreu um erro ao enviar as respostas.');
+            console.error('Erro:', error);
         });
     }
     </script>
 
 </body>
 </html>
+
 
