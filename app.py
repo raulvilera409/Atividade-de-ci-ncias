@@ -4,29 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade Discursiva</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Biblioteca Chart.js -->
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background: linear-gradient(to bottom, #FFD580, #B2FF99);
-            color: black; /* Cor preta para o texto */
+            color: black;
         }
 
         h1 {
             text-align: center;
-            text-shadow: none; /* Remove sombra do título */
-            font-weight: normal; /* Sem negrito */
+            font-weight: normal;
         }
 
         h3 {
-            text-shadow: none; /* Remove sombra dos subtítulos */
-            font-weight: normal; /* Sem negrito */
+            font-weight: normal;
+            margin: 0;
         }
 
         label, button, textarea {
-            text-shadow: none; /* Remove sombra do texto */
-            font-weight: normal; /* Sem negrito */
+            font-weight: normal;
         }
 
         .header-inputs {
@@ -38,12 +35,12 @@
             padding: 10px;
             margin-bottom: 40px;
             font-size: 12px;
-            color: black; /* Cor preta para o texto */
+            color: black;
         }
 
         textarea {
             width: 100%;
-            height: 250px;
+            height: 150px;
             margin-top: 10px;
             font-size: 16px;
         }
@@ -57,7 +54,7 @@
             border: none;
             cursor: pointer;
             font-size: 14px;
-            font-weight: normal; /* Sem negrito */
+            font-weight: normal;
         }
 
         button:hover {
@@ -74,7 +71,6 @@
             background-color: lightcoral;
             color: red;
         }
-
     </style>
 </head>
 <body>
@@ -102,12 +98,12 @@
         </div>
 
         <div class="question">
-            <h3><b>2.</b> Os fósseis indicam que as baleias modernas evoluíram de mamíferos terrestres há milhões de anos. Seus membros anteriores são considerados órgãos homólogos aos membros de outros mamíferos, como os braços humanos. Utilizando o conceito de órgãos homólogos, explique o processo evolutivo que pode ter levado à transformação dos membros anteriores de mamíferos terrestres nos atuais membros das baleias.</h3>
+            <h3><b>2.</b> Os fósseis indicam que as baleias modernas evoluíram de mamíferos terrestres há milhões de anos. Seus membros anteriores são considerados órgãos homólogos aos membros de outros mamíferos, como os braços humanos. Explique o processo evolutivo que pode ter levado à transformação dos membros anteriores de mamíferos terrestres nos atuais membros das baleias.</h3>
             <textarea id="resposta2" name="resposta2" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>3.</b> O uso indiscriminado de antibióticos tem causado o surgimento de bactérias resistentes a medicamentos, representando um grande desafio à saúde pública global. Esse fenômeno é explicado pela seleção natural. Explique como o processo de seleção natural pode levar ao desenvolvimento de populações bacterianas resistentes a antibióticos.</h3>
+            <h3><b>3.</b> O uso indiscriminado de antibióticos tem causado o surgimento de bactérias resistentes a medicamentos, representando um grande desafio à saúde pública global. Explique como o processo de seleção natural pode levar ao desenvolvimento de populações bacterianas resistentes a antibióticos.</h3>
             <textarea id="resposta3" name="resposta3" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
@@ -117,7 +113,7 @@
         </div>
 
         <div class="question">
-            <h3><b>5.</b> Estudos indicam que bebês com pesos muito baixos ou muito altos ao nascer têm menor chance de sobreviver em comparação com bebês de peso intermediário. Esse fato ilustra um tipo de seleção natural. Descreva o tipo de seleção natural envolvido nesse exemplo e explique seu papel na manutenção de certas características em populações humanas.</h3>
+            <h3><b>5.</b> Estudos indicam que bebês com pesos muito baixos ou muito altos ao nascer têm menor chance de sobreviver em comparação com bebês de peso intermediário. Descreva o tipo de seleção natural envolvido nesse exemplo e explique seu papel na manutenção de certas características em populações humanas.</h3>
             <textarea id="resposta5" name="resposta5" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
@@ -127,7 +123,7 @@
         </div>
 
         <div class="question">
-            <h3><b>7.</b> Charles Darwin observou que os criadores de pombos selecionavam ativamente os animais com características desejáveis para a reprodução. Ele usou essas observações para desenvolver sua teoria da seleção natural. Explique como a seleção artificial observada por Darwin em pombos contribuiu para sua formulação da teoria da seleção natural.</h3>
+            <h3><b>7.</b> Charles Darwin observou que os criadores de pombos selecionavam ativamente os animais com características desejáveis para a reprodução. Explique como a seleção artificial observada por Darwin contribuiu para sua formulação da teoria da seleção natural.</h3>
             <textarea id="resposta7" name="resposta7" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
@@ -137,12 +133,12 @@
         </div>
 
         <div class="question">
-            <h3><b>9.</b> Em um lago, uma população de peixes que antes se alimentava de um único tipo de alimento desenvolveu duas subpopulações com preferências alimentares distintas, levando a um isolamento reprodutivo sem separação geográfica. Defina especiação simpátrica e explique como a diferenciação de hábitos alimentares pode levar à formação de novas espécies dentro de uma mesma área geográfica.</h3>
+            <h3><b>9.</b> Em um lago, uma população de peixes desenvolveu duas subpopulações com preferências alimentares distintas, levando a um isolamento reprodutivo sem separação geográfica. Explique o conceito de especiação simpátrica.</h3>
             <textarea id="resposta9" name="resposta9" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>10.</b> Durante a pandemia de COVID-19, alguns grupos populacionais apresentaram maior resistência ao vírus devido a fatores genéticos, imunológicos ou comportamentais, enquanto outros foram mais suscetíveis. Utilizando o conceito de seleção natural, explique como pandemias podem influenciar a composição genética de uma população ao longo do tempo.</h3>
+            <h3><b>10.</b> Durante a pandemia de COVID-19, alguns grupos populacionais apresentaram maior resistência ao vírus. Explique como pandemias podem influenciar a composição genética de uma população.</h3>
             <textarea id="resposta10" name="resposta10" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
@@ -172,9 +168,7 @@
             resposta10: document.getElementById('resposta10').value
         };
 
-        // URL do Google Apps Script que processa as respostas e envia o feedback
-        var url = 'https://script.google.com/macros/s/AKfycbyoGvcYcpdfAudchjFMB9QTG_sseF2cab-rKP6qWtLlIIFnJLGxiyRBsCzBrVlSJ0q2/exec
-';
+        var url = 'https://script.google.com/macros/s/AKfycbyylS4M-ckcpYks72HQmIJQrV8zAXej1tgp9vScqLrrMs5gW7S7JDE3ZbWpNtxdbw5E/exec';
 
         fetch(url, {
             method: 'POST',
@@ -183,14 +177,13 @@
             },
             body: JSON.stringify(respostas)
         }).then(function(response) {
-            return response.json(); // Espera o feedback do servidor
+            return response.json(); 
         }).then(function(data) {
             var feedback = data.feedback;
 
-            // Aplica o feedback visual para cada resposta
             for (var i = 1; i <= feedback.length; i++) {
                 var respostaElement = document.getElementById('resposta' + i);
-                respostaElement.className = feedback[i - 1]; // Aplica "correto" ou "incorreto"
+                respostaElement.className = feedback[i - 1]; 
             }
 
             alert('Respostas corrigidas!');
