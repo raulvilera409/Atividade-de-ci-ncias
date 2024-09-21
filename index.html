@@ -184,25 +184,30 @@
     </form>
 
     <script>
-    var startTime = Date.now();
     var timers = [];
+    var intervals = [];
 
-    // Inicia o cronômetro para cada questão
-    function startClocks() {
-        for (var i = 1; i <= 10; i++) {
+    // Função para iniciar o cronômetro ao focar em uma questão
+    function startClock(i) {
+        if (!intervals[i]) { // Se o intervalo ainda não foi iniciado
             timers[i] = 0;
-            (function(i) {
-                setInterval(function() {
-                    timers[i]++;
-                    var minutes = Math.floor(timers[i] / 60);
-                    var seconds = timers[i] % 60;
-                    document.getElementById('clock' + i).innerText = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-                }, 1000);
-            })(i);
+            intervals[i] = setInterval(function() {
+                timers[i]++;
+                var minutes = Math.floor(timers[i] / 60);
+                var seconds = timers[i] % 60;
+                document.getElementById('clock' + i).innerText = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+            }, 1000);
         }
     }
 
-    window.onload = startClocks;
+    // Adiciona evento 'focus' para cada textarea, iniciando o cronômetro individual
+    for (var i = 1; i <= 10; i++) {
+        document.getElementById('resposta' + i).addEventListener('focus', (function(i) {
+            return function() {
+                startClock(i);
+            };
+        })(i));
+    }
 
     function submitAnswers() {
         var nome = document.getElementById('nome').value;
@@ -227,7 +232,7 @@
         };
 
         // URL do Google Apps Script que processa as respostas e envia o feedback
-        var url = 'https://script.google.com/macros/s/AKfycbzOVbOraIhnzPgi95Xl_qmbbK479OfwGwXsTH9xT99bolVXNs8GvRtsjtI995qfij_j/exec';
+        var url = 'https://script.google.com/macros/s/AKfycbxGUk3D53X1xWExbWqeenBeO8xFg-0259yjwYl5vQsgqO20xnB3tU_bNk7f2pCIl3c6/exec';
 
         fetch(url, {
             method: 'POST',
@@ -257,6 +262,7 @@
 
 </body>
 </html>
+
 
 
 
