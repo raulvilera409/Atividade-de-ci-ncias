@@ -1,110 +1,65 @@
 function doPost(e) {
-  // ID da planilha de destino
-  var sheetId = '16PQkpPICh5hwjIor9HeQ6LRHWiETfmOi_tJpiJ6EQyo';
-  
-  // Acessa a planilha
-  var sheet = SpreadsheetApp.openById(sheetId);
-  
-  // Define as abas
-  var responseSheet = sheet.getSheetByName("Página1");  // Onde serão registradas as respostas
-  var gabaritoSheet = sheet.getSheetByName("GABARITO");  // Onde está o gabarito
+  try {
+    // ID da planilha e as abas relevantes
+    var sheetID = "16PQkpPICh5hwjIor9HeQ6LRHWiETfmOi_tJpiJ6EQyo";
+    var sheet = SpreadsheetApp.openById(sheetID).getSheetByName("Pagina1");
+    var gabaritoSheet = SpreadsheetApp.openById(sheetID).getSheetByName("GABARITO");
 
-  // Parse da requisição POST recebida
-  var data = JSON.parse(e.postData.contents);
+    // Dados recebidos do formulário (JSON)
+    var jsonData = JSON.parse(e.postData.contents);
 
-  // Array com as respostas do gabarito (B1:B10 da aba GABARITO)
-  var gabarito = gabaritoSheet.getRange("B1:B10").getValues().flat();
+    // Nome, série, data, respostas do aluno e tempos
+    var nome = jsonData.nome;
+    var serie = jsonData.serie;
+    var data = jsonData.data;
+    var respostas = [
+      jsonData.resposta1,
+      jsonData.resposta2,
+      jsonData.resposta3,
+      jsonData.resposta4,
+      jsonData.resposta5,
+      jsonData.resposta6,
+      jsonData.resposta7,
+      jsonData.resposta8,
+      jsonData.resposta9,
+      jsonData.resposta10
+    ];
+    var tempos = jsonData.tempos;
 
-  // Array com as respostas do aluno
-  var respostasAluno = [
-    data.resposta1,
-    data.resposta2,
-    data.resposta3,
-    data.resposta4,
-    data.resposta5,
-    data.resposta6,
-    data.resposta7,
-    data.resposta8,
-    data.resposta9,
-    data.resposta10
-  ];
+    // Coluna com as respostas do gabarito (B1:B10)
+    var gabarito = gabaritoSheet.getRange("B1:B10").getValues().flat();
 
-  // Array para feedback se as respostas estão corretas ou incorretas
-  var feedback = respostasAluno.map(function(resposta, index) {
-    return resposta.trim().toLowerCase() === gabarito[index].trim().toLowerCase() ? 'correto' : 'incorreto';
-  });
+    // Comparar as respostas com o gabarito e gerar o feedback
+    var feedback = [];
+    for (var i = 0; i < respostas.length; i++) {
+      if (respostas[i].trim().toLowerCase() === gabarito[i][0].trim().toLowerCase()) {
+        feedback.push("correto");
+      } else {
+        feedback.push("incorreto");
+      }
+    }
 
-  // Armazena as respostas do aluno na aba "Página1"
-  responseSheet.appendRow([
-    new Date(),          // Data e hora do registro
-    data.nome,           // Nome do aluno
-    data.serie,          // Série
-    data.data,           // Data da prova
-    data.resposta1,      // Resposta 1
-    data.resposta2,      // Resposta 2
-    data.resposta3,      // Resposta 3
-    data.resposta4,      // Resposta 4
-    data.resposta5,      // Resposta 5
-    data.resposta6,      // Resposta 6
-    data.resposta7,      // Resposta 7
-    data.resposta8,      // Resposta 8
-    data.resposta9,      // Resposta 9
-    data.resposta10,     // Resposta 10
-    feedback.join(", ")  // Feedback de respostas corretas ou incorretas
-  ]);
+    // Salvar as respostas e o tempo na aba "Pagina1"
+    var novaLinha = sheet.getLastRow() + 1;
+    sheet.appendRow([
+      nome,
+      serie,
+      data,
+      respostas[0], respostas[1], respostas[2], respostas[3], respostas[4], 
+      respostas[5], respostas[6], respostas[7], respostas[8], respostas[9],
+      tempos[1], tempos[2], tempos[3], tempos[4], tempos[5], 
+      tempos[6], tempos[7], tempos[8], tempos[9], tempos[10]
+    ]);
 
-  // Retorna feedback para o cliente (formulário)
-  return ContentService
-    .createTextOutput(JSON.stringify({feedback: feedback}))
-    .setMimeType(ContentService.MimeType.JSON);
+    // Retornar o feedback como JSON
+    return ContentService.createTextOutput(JSON.stringify({feedback: feedback}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({error: error.message}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
-function submitAnswers() {
-    var nome = document.getElementById('nome').value;
-    var serie = document.getElementById('serie').value;
-    var data = document.getElementById('data').value;
 
-    var respostas = {
-        nome: nome,
-        serie: serie,
-        data: data,
-        resposta1: document.getElementById('resposta1').value,
-        resposta2: document.getElementById('resposta2').value,
-        resposta3: document.getElementById('resposta3').value,
-        resposta4: document.getElementById('resposta4').value,
-        resposta5: document.getElementById('resposta5').value,
-        resposta6: document.getElementById('resposta6').value,
-        resposta7: document.getElementById('resposta7').value,
-        resposta8: document.getElementById('resposta8').value,
-        resposta9: document.getElementById('resposta9').value,
-        resposta10: document.getElementById('resposta10').value
-    };
-
-    // URL do Google Apps Script (substitua pela URL gerada pelo Apps Script)
-    var url = 'https://script.google.com/macros/s/AKfycbxGUk3D53X1xWExbWqeenBeO8xFg-0259yjwYl5vQsgqO20xnB3tU_bNk7f2pCIl3c6/exec';
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(respostas)
-    }).then(function(response) {
-        return response.json(); // Espera o feedback do servidor
-    }).then(function(data) {
-        var feedback = data.feedback;
-
-        // Aplica o feedback visual para cada resposta
-        for (var i = 1; i <= feedback.length; i++) {
-            var respostaElement = document.getElementById('resposta' + i);
-            respostaElement.className = feedback[i - 1]; // Aplica "correto" ou "incorreto"
-        }
-
-        alert('Respostas enviadas e corrigidas!');
-    }).catch(function(error) {
-        alert('Ocorreu um erro ao enviar as respostas.');
-        console.error('Erro:', error);
-    });
-}
 
 
 
