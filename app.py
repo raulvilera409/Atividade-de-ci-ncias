@@ -99,14 +99,13 @@
         .question h3 {
             width: 80%;
         }
-
     </style>
 </head>
 <body>
 
    <center><h1><b>AVALIAÇÃO DE CIÊNCIAS (3º BIMESTRE)</b></h1></center>
 
-    <form id="discursive-form">
+    <form id="discursive-form" onsubmit="return verificarRespostas();">
 
         <div class="header-inputs">
             <label for="nome">Nome:</label>
@@ -159,8 +158,7 @@
             </div>
             <textarea id="resposta5" name="resposta5" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
-
-        <div class="question">
+<div class="question">
             <div class="question-wrapper">
                 <h3><b>6.</b> Em uma população de pássaros, indivíduos com plumagens muito claras ou muito escuras têm maior sobrevivência do que aqueles com plumagem intermediária, devido à sua melhor camuflagem em ambientes distintos. Explique como a seleção disruptiva pode atuar sobre as populações, promovendo a diversificação de características.</h3>
                 <div id="clock-box6" class="clock-box">00:00</div>
@@ -201,91 +199,39 @@
             <textarea id="resposta10" name="resposta10" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
-        <!-- Botão de Envio -->
-        <button type="button" onclick="submitAnswers()">ENVIAR</button>
-
+        <!-- Botão de envio -->
+        <button type="submit">Enviar Respostas</button>
     </form>
 
     <script>
-    var timers = {}; // Para armazenar o tempo de cada questão
-    var intervals = {}; // Para armazenar os intervalos de cada questão
+        // Respostas corretas retiradas do Gabarito
+        const gabarito = [
+            "Isolamento geográfico pode causar especiação pela seleção natural diferenciada.",
+            "Órgãos homólogos surgem de um ancestral comum, adaptando-se para diferentes funções.",
+            "Seleção natural favorece as bactérias resistentes que sobrevivem ao antibiótico.",
+            "Órgãos análogos evoluem de forma independente por adaptação semelhante ao ambiente.",
+            "Seleção estabilizadora favorece a sobrevivência de bebês de peso intermediário."
+        ];
 
-    // Função para iniciar o cronômetro de uma questão
-    function startClock(questionId) {
-        if (!timers[questionId]) {
-            timers[questionId] = 0;
-        }
-        intervals[questionId] = setInterval(function() {
-            timers[questionId]++;
-            var minutes = Math.floor(timers[questionId] / 60);
-            var seconds = timers[questionId] % 60;
-            document.getElementById('clock-box' + questionId).innerText = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-        }, 1000);
-    }
+        function verificarRespostas() {
+            const respostasUsuario = [
+                document.getElementById('resposta1').value,
+                document.getElementById('resposta2').value,
+                document.getElementById('resposta3').value,
+                document.getElementById('resposta4').value,
+                document.getElementById('resposta5').value
+            ];
 
-    // Função para parar o cronômetro de uma questão
-    function stopClock(questionId) {
-        clearInterval(intervals[questionId]);
-    }
-
-    // Inicializar eventos para cada textarea
-    for (var i = 1; i <= 10; i++) {
-        (function(i) {
-            var textarea = document.getElementById('resposta' + i);
-            textarea.addEventListener('focus', function() {
-                startClock(i);
-            });
-            textarea.addEventListener('blur', function() {
-                stopClock(i);
-            });
-        })(i);
-    }
-
-    function submitAnswers() {
-        var nome = document.getElementById('nome').value;
-        var serie = document.getElementById('serie').value;
-        var data = document.getElementById('data').value;
-
-        var respostas = {
-            nome: nome,
-            serie: serie,
-            data: data,
-            resposta1: document.getElementById('resposta1').value,
-            resposta2: document.getElementById('resposta2').value,
-            resposta3: document.getElementById('resposta3').value,
-            resposta4: document.getElementById('resposta4').value,
-            resposta5: document.getElementById('resposta5').value,
-            resposta6: document.getElementById('resposta6').value,
-            resposta7: document.getElementById('resposta7').value,
-            resposta8: document.getElementById('resposta8').value,
-            resposta9: document.getElementById('resposta9').value,
-            resposta10: document.getElementById('resposta10').value,
-            tempos: timers // Envia os tempos de cada questão
-        };
-
-        var url = 'https://script.google.com/macros/s/AKfycbxGUk3D53X1xWExbWqeenBeO8xFg-0259yjwYl5vQsgqO20xnB3tU_bNk7f2pCIl3c6/exec';
-
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(respostas)
-        }).then(function(response) {
-            return response.json(); 
-        }).then(function(data) {
-            var feedback = data.feedback;
-            for (var i = 1; i <= feedback.length; i++) {
-                var respostaElement = document.getElementById('resposta' + i);
-                respostaElement.className = feedback[i - 1];
+            for (let i = 0; i < gabarito.length; i++) {
+                if (respostasUsuario[i].toLowerCase().trim() === gabarito[i].toLowerCase().trim()) {
+                    alert(`Questão ${i+1}: Correto!`);
+                } else {
+                    alert(`Questão ${i+1}: Incorreto. Resposta correta: ${gabarito[i]}`);
+                }
             }
-            alert('Respostas corrigidas!');
-        }).catch(function(error) {
-            alert('Erro ao enviar as respostas.');
-            console.error('Erro:', error);
-        });
-    }
 
+            return false; // Impede envio do formulário para permitir verificação
+        }
     </script>
 
 </body>
