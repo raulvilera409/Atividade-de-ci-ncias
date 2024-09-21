@@ -4,26 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade Discursiva</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Biblioteca Chart.js -->
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background: linear-gradient(to bottom, #FFD580, #B2FF99);
-            color: black;
+            color: black; /* Cor preta para o texto */
         }
 
         h1 {
             text-align: center;
-            font-weight: normal;
+            text-shadow: none; /* Remove sombra do título */
+            font-weight: normal; /* Sem negrito */
         }
 
         h3 {
-            font-weight: normal;
-            margin: 0;
+            text-shadow: none; /* Remove sombra dos subtítulos */
+            font-weight: normal; /* Sem negrito */
         }
 
         label, button, textarea {
-            font-weight: normal;
+            text-shadow: none; /* Remove sombra do texto */
+            font-weight: normal; /* Sem negrito */
         }
 
         .header-inputs {
@@ -35,12 +38,12 @@
             padding: 10px;
             margin-bottom: 40px;
             font-size: 12px;
-            color: black;
+            color: black; /* Cor preta para o texto */
         }
 
         textarea {
             width: 100%;
-            height: 150px;
+            height: 250px;
             margin-top: 10px;
             font-size: 16px;
         }
@@ -54,28 +57,29 @@
             border: none;
             cursor: pointer;
             font-size: 14px;
-            font-weight: normal;
+            font-weight: normal; /* Sem negrito */
         }
 
         button:hover {
             background-color: #45a049;
         }
 
-        .clock-container {
-            font-size: 12px;
-            font-weight: bold;
-            color: black;
+        /* Feedback visual de respostas */
+        .correto {
+            background-color: lightblue;
+            color: blue;
         }
 
-        .question {
-            margin-bottom: 20px;
+        .incorreto {
+            background-color: lightcoral;
+            color: red;
         }
 
     </style>
 </head>
 <body>
 
-    <center><h1><b>AVALIAÇÃO DE CIÊNCIAS (3º BIMESTRE)</b></h1></center>
+   <center><h1><b>AVALIAÇÃO DE CIÊNCIAS (3º BIMESTRE)</b></h1></center>
 
     <form id="discursive-form">
 
@@ -91,94 +95,54 @@
             <input type="date" id="data" name="data" required>
         </div>
 
-        <!-- Questões Discursivas com Relógio Circular -->
+        <!-- Questões Discursivas -->
         <div class="question">
-            <h3><b>1.</b> Mudanças climáticas globais têm gerado uma alteração nos habitats de diversas espécies. Explique como o isolamento geográfico pode levar à especiação, considerando o impacto das mudanças climáticas nos ambientes naturais.
-                <div class="clock-container">
-                    Tempo: <span id="clock1">00:00</span>
-                </div>
-            </h3>
+            <h3><b>1.</b> Mudanças climáticas globais têm gerado uma alteração nos habitats de diversas espécies. Explique como o isolamento geográfico pode levar à especiação, considerando o impacto das mudanças climáticas nos ambientes naturais.</h3>
             <textarea id="resposta1" name="resposta1" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>2.</b> Os fósseis indicam que as baleias modernas evoluíram de mamíferos terrestres há milhões de anos. Utilizando o conceito de órgãos homólogos, explique o processo evolutivo.
-                <div class="clock-container">
-                    Tempo: <span id="clock2">00:00</span>
-                </div>
-            </h3>
+            <h3><b>2.</b> Os fósseis indicam que as baleias modernas evoluíram de mamíferos terrestres há milhões de anos. Seus membros anteriores são considerados órgãos homólogos aos membros de outros mamíferos, como os braços humanos. Utilizando o conceito de órgãos homólogos, explique o processo evolutivo que pode ter levado à transformação dos membros anteriores de mamíferos terrestres nos atuais membros das baleias.</h3>
             <textarea id="resposta2" name="resposta2" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>3.</b> O uso indiscriminado de antibióticos tem causado o surgimento de bactérias resistentes. Explique como o processo de seleção natural pode levar ao desenvolvimento de populações bacterianas resistentes.
-                <div class="clock-container">
-                    Tempo: <span id="clock3">00:00</span>
-                </div>
-            </h3>
+            <h3><b>3.</b> O uso indiscriminado de antibióticos tem causado o surgimento de bactérias resistentes a medicamentos, representando um grande desafio à saúde pública global. Esse fenômeno é explicado pela seleção natural. Explique como o processo de seleção natural pode levar ao desenvolvimento de populações bacterianas resistentes a antibióticos.</h3>
             <textarea id="resposta3" name="resposta3" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>4.</b> Tanto as aves quanto os insetos desenvolveram a capacidade de voar, apesar de não possuírem ancestrais comuns com essa característica. Suas asas são exemplos de órgãos análogos. Explique como eles se relacionam com a evolução convergente.
-                <div class="clock-container">
-                    Tempo: <span id="clock4">00:00</span>
-                </div>
-            </h3>
+            <h3><b>4.</b> Tanto as aves quanto os insetos desenvolveram a capacidade de voar, apesar de não possuírem ancestrais comuns com essa característica. Suas asas são exemplos de órgãos análogos. Defina o conceito de órgãos análogos e explique como eles se relacionam com o processo de evolução convergente.</h3>
             <textarea id="resposta4" name="resposta4" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>5.</b> Estudos indicam que bebês com pesos muito baixos ou muito altos ao nascer têm menor chance de sobreviver. Explique como a seleção natural pode manter certas características em populações humanas.
-                <div class="clock-container">
-                    Tempo: <span id="clock5">00:00</span>
-                </div>
-            </h3>
+            <h3><b>5.</b> Estudos indicam que bebês com pesos muito baixos ou muito altos ao nascer têm menor chance de sobreviver em comparação com bebês de peso intermediário. Esse fato ilustra um tipo de seleção natural. Descreva o tipo de seleção natural envolvido nesse exemplo e explique seu papel na manutenção de certas características em populações humanas.</h3>
             <textarea id="resposta5" name="resposta5" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>6.</b> Em uma população de pássaros, indivíduos com plumagens muito claras ou muito escuras têm maior sobrevivência. Explique como a seleção disruptiva pode promover a diversificação de características.
-                <div class="clock-container">
-                    Tempo: <span id="clock6">00:00</span>
-                </div>
-            </h3>
+            <h3><b>6.</b> Em uma população de pássaros, indivíduos com plumagens muito claras ou muito escuras têm maior sobrevivência do que aqueles com plumagem intermediária, devido à sua melhor camuflagem em ambientes distintos. Explique como a seleção disruptiva pode atuar sobre as populações, promovendo a diversificação de características.</h3>
             <textarea id="resposta6" name="resposta6" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>7.</b> Charles Darwin observou que os criadores de pombos selecionavam animais com características desejáveis para reprodução. Explique como a seleção artificial observada por Darwin contribuiu para sua teoria da seleção natural.
-                <div class="clock-container">
-                    Tempo: <span id="clock7">00:00</span>
-                </div>
-            </h3>
+            <h3><b>7.</b> Charles Darwin observou que os criadores de pombos selecionavam ativamente os animais com características desejáveis para a reprodução. Ele usou essas observações para desenvolver sua teoria da seleção natural. Explique como a seleção artificial observada por Darwin em pombos contribuiu para sua formulação da teoria da seleção natural.</h3>
             <textarea id="resposta7" name="resposta7" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>8.</b> A Teoria Sintética da Evolução integrou a teoria de Darwin com conhecimentos de genética. Explique o papel das mutações e da recombinação genética na variabilidade das populações.
-                <div class="clock-container">
-                    Tempo: <span id="clock8">00:00</span>
-                </div>
-            </h3>
+            <h3><b>8.</b> A Teoria Sintética da Evolução, ou Neodarwinismo, integrou a teoria de Darwin com os conhecimentos de genética, como a transmissão de características hereditárias e as mutações. Explique como o Neodarwinismo ampliou a teoria original de Darwin e inclua no seu argumento o papel das mutações e da recombinação genética na variabilidade das populações.</h3>
             <textarea id="resposta8" name="resposta8" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>9.</b> Em um lago, uma população de peixes desenvolveu duas subpopulações com preferências alimentares distintas, levando a isolamento reprodutivo sem separação geográfica. Explique o conceito de especiação simpátrica.
-                <div class="clock-container">
-                    Tempo: <span id="clock9">00:00</span>
-                </div>
-            </h3>
+            <h3><b>9.</b> Em um lago, uma população de peixes que antes se alimentava de um único tipo de alimento desenvolveu duas subpopulações com preferências alimentares distintas, levando a um isolamento reprodutivo sem separação geográfica. Defina especiação simpátrica e explique como a diferenciação de hábitos alimentares pode levar à formação de novas espécies dentro de uma mesma área geográfica.</h3>
             <textarea id="resposta9" name="resposta9" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>10.</b> Durante a pandemia de COVID-19, alguns grupos populacionais apresentaram maior resistência ao vírus. Explique como pandemias podem influenciar a composição genética de uma população.
-                <div class="clock-container">
-                    Tempo: <span id="clock10">00:00</span>
-                </div>
-            </h3>
+            <h3><b>10.</b> Durante a pandemia de COVID-19, alguns grupos populacionais apresentaram maior resistência ao vírus devido a fatores genéticos, imunológicos ou comportamentais, enquanto outros foram mais suscetíveis. Utilizando o conceito de seleção natural, explique como pandemias podem influenciar a composição genética de uma população ao longo do tempo.</h3>
             <textarea id="resposta10" name="resposta10" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
@@ -187,39 +151,6 @@
     </form>
 
     <script>
-    var startTimes = {};
-    var endTimes = {};
-
-    function startClock(i) {
-        if (!startTimes[i]) {
-            startTimes[i] = new Date();
-        }
-    }
-
-    function stopClock(i) {
-        if (!endTimes[i]) {
-            endTimes[i] = new Date();
-            var diff = (endTimes[i] - startTimes[i]) / 1000; // Diferença em segundos
-            var minutes = Math.floor(diff / 60);
-            var seconds = Math.floor(diff % 60);
-            document.getElementById('clock' + i).innerText = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
-        }
-    }
-
-    for (var i = 1; i <= 10; i++) {
-        document.getElementById('resposta' + i).addEventListener('focus', (function(i) {
-            return function() {
-                startClock(i);
-            };
-        })(i));
-
-        document.getElementById('resposta' + i).addEventListener('blur', (function(i) {
-            return function() {
-                stopClock(i);
-            };
-        })(i));
-    }
-
     function submitAnswers() {
         var nome = document.getElementById('nome').value;
         var serie = document.getElementById('serie').value;
@@ -238,22 +169,12 @@
             resposta7: document.getElementById('resposta7').value,
             resposta8: document.getElementById('resposta8').value,
             resposta9: document.getElementById('resposta9').value,
-            resposta10: document.getElementById('resposta10').value,
-            tempos: {
-                tempo1: document.getElementById('clock1').innerText,
-                tempo2: document.getElementById('clock2').innerText,
-                tempo3: document.getElementById('clock3').innerText,
-                tempo4: document.getElementById('clock4').innerText,
-                tempo5: document.getElementById('clock5').innerText,
-                tempo6: document.getElementById('clock6').innerText,
-                tempo7: document.getElementById('clock7').innerText,
-                tempo8: document.getElementById('clock8').innerText,
-                tempo9: document.getElementById('clock9').innerText,
-                tempo10: document.getElementById('clock10').innerText
-            }
+            resposta10: document.getElementById('resposta10').value
         };
 
-        var url = 'var url = 'https://script.google.com/macros/s/AKfycbxGUk3D53X1xWExbWqeenBeO8xFg-0259yjwYl5vQsgqO20xnB3tU_bNk7f2pCIl3c6/exec'; // Substitua pelo seu URL correto';
+        // URL do Google Apps Script que processa as respostas e envia o feedback
+        var url = 'https://script.google.com/macros/s/AKfycbyoGvcYcpdfAudchjFMB9QTG_sseF2cab-rKP6qWtLlIIFnJLGxiyRBsCzBrVlSJ0q2/exec
+';
 
         fetch(url, {
             method: 'POST',
@@ -262,16 +183,17 @@
             },
             body: JSON.stringify(respostas)
         }).then(function(response) {
-            return response.json();
+            return response.json(); // Espera o feedback do servidor
         }).then(function(data) {
             var feedback = data.feedback;
 
+            // Aplica o feedback visual para cada resposta
             for (var i = 1; i <= feedback.length; i++) {
                 var respostaElement = document.getElementById('resposta' + i);
-                respostaElement.className = feedback[i - 1];
+                respostaElement.className = feedback[i - 1]; // Aplica "correto" ou "incorreto"
             }
 
-            alert('Respostas enviadas com sucesso!');
+            alert('Respostas corrigidas!');
         }).catch(function(error) {
             alert('Ocorreu um erro ao enviar as respostas.');
             console.error('Erro:', error);
