@@ -1,77 +1,110 @@
 function doPost(e) {
-  // Captura os dados enviados no POST request
-  var formData = e.parameter;
+  // ID da planilha de destino
+  var sheetId = '16PQkpPICh5hwjIor9HeQ6LRHWiETfmOi_tJpiJ6EQyo';
   
-  // Acessa a planilha pelo ID
-  var ss = SpreadsheetApp.openById("16PQkpPICh5hwjIor9HeQ6LRHWiETfmOi_tJpiJ6EQyo");
+  // Acessa a planilha
+  var sheet = SpreadsheetApp.openById(sheetId);
   
-  // Acessa as abas "Página1" e "GABARITO"
-  var questionsSheet = ss.getSheetByName("Página1");
-  var answersSheet = ss.getSheetByName("GABARITO");
-  
-  // Pega o intervalo com as questões e gabarito
-  var questions = questionsSheet.getRange("D2:M2").getValues()[0]; // Questões
-  var gabarito = answersSheet.getRange("A1:B10").getValues(); // Gabarito: [número, resposta]
-  
-  var userResponses = []; // Onde armazenar as respostas do usuário
-  
-  // Itera sobre o gabarito para comparar as respostas
-  for (var i = 0; i < gabarito.length; i++) {
-    var questionNumber = gabarito[i][0];
-    var correctAnswer = gabarito[i][1];
-    
-    // Captura a resposta do usuário para cada questão
-    var userAnswer = formData["answer" + questionNumber]; // Nome dos inputs do form devem ser 'answer1', 'answer2', etc.
-    
-    userResponses.push({
-      questionNumber: questionNumber,
-      userAnswer: userAnswer,
-      correctAnswer: correctAnswer,
-      isCorrect: userAnswer === correctAnswer
-    });
-  }
-  
-  // Retorna os resultados
-  return ContentService.createTextOutput(JSON.stringify({
-    status: 'sucesso',
-    respostas: userResponses
-  })).setMimeType(ContentService.MimeType.JSON);
+  // Define as abas
+  var responseSheet = sheet.getSheetByName("Página1");  // Onde serão registradas as respostas
+  var gabaritoSheet = sheet.getSheetByName("GABARITO");  // Onde está o gabarito
+
+  // Parse da requisição POST recebida
+  var data = JSON.parse(e.postData.contents);
+
+  // Array com as respostas do gabarito (B1:B10 da aba GABARITO)
+  var gabarito = gabaritoSheet.getRange("B1:B10").getValues().flat();
+
+  // Array com as respostas do aluno
+  var respostasAluno = [
+    data.resposta1,
+    data.resposta2,
+    data.resposta3,
+    data.resposta4,
+    data.resposta5,
+    data.resposta6,
+    data.resposta7,
+    data.resposta8,
+    data.resposta9,
+    data.resposta10
+  ];
+
+  // Array para feedback se as respostas estão corretas ou incorretas
+  var feedback = respostasAluno.map(function(resposta, index) {
+    return resposta.trim().toLowerCase() === gabarito[index].trim().toLowerCase() ? 'correto' : 'incorreto';
+  });
+
+  // Armazena as respostas do aluno na aba "Página1"
+  responseSheet.appendRow([
+    new Date(),          // Data e hora do registro
+    data.nome,           // Nome do aluno
+    data.serie,          // Série
+    data.data,           // Data da prova
+    data.resposta1,      // Resposta 1
+    data.resposta2,      // Resposta 2
+    data.resposta3,      // Resposta 3
+    data.resposta4,      // Resposta 4
+    data.resposta5,      // Resposta 5
+    data.resposta6,      // Resposta 6
+    data.resposta7,      // Resposta 7
+    data.resposta8,      // Resposta 8
+    data.resposta9,      // Resposta 9
+    data.resposta10,     // Resposta 10
+    feedback.join(", ")  // Feedback de respostas corretas ou incorretas
+  ]);
+
+  // Retorna feedback para o cliente (formulário)
+  return ContentService
+    .createTextOutput(JSON.stringify({feedback: feedback}))
+    .setMimeType(ContentService.MimeType.JSON);
 }
-document.getElementById('submit-btn').addEventListener('click', function(event) {
-    event.preventDefault();  // Evita o comportamento padrão do formulário
-    
-    submitForm();
-});
+function submitAnswers() {
+    var nome = document.getElementById('nome').value;
+    var serie = document.getElementById('serie').value;
+    var data = document.getElementById('data').value;
 
-function submitForm() {
-    const formData = new FormData(document.getElementById('discursive-form'));
+    var respostas = {
+        nome: nome,
+        serie: serie,
+        data: data,
+        resposta1: document.getElementById('resposta1').value,
+        resposta2: document.getElementById('resposta2').value,
+        resposta3: document.getElementById('resposta3').value,
+        resposta4: document.getElementById('resposta4').value,
+        resposta5: document.getElementById('resposta5').value,
+        resposta6: document.getElementById('resposta6').value,
+        resposta7: document.getElementById('resposta7').value,
+        resposta8: document.getElementById('resposta8').value,
+        resposta9: document.getElementById('resposta9').value,
+        resposta10: document.getElementById('resposta10').value
+    };
 
-    fetch('https://script.google.com/macros/s/AKfycbxKkhaT7oIqTQs9DwCxnOvFvG0em6id_ZXYXCJC6YsmV2SxYUdiGyxS945upgfBEZQj/exec', {
+    // URL do Google Apps Script (substitua pela URL gerada pelo Apps Script)
+    var url = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+    fetch(url, {
         method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'sucesso') {
-            alert('Respostas enviadas com sucesso!');
-            console.log('Resultados:', data.respostas);
-        } else {
-            alert('Erro ao enviar as respostas: ' + data.mensagem);
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(respostas)
+    }).then(function(response) {
+        return response.json(); // Espera o feedback do servidor
+    }).then(function(data) {
+        var feedback = data.feedback;
+
+        // Aplica o feedback visual para cada resposta
+        for (var i = 1; i <= feedback.length; i++) {
+            var respostaElement = document.getElementById('resposta' + i);
+            respostaElement.className = feedback[i - 1]; // Aplica "correto" ou "incorreto"
         }
-    })
-    .catch(error => {
-        alert('Erro ao enviar as respostas.');
+
+        alert('Respostas enviadas e corrigidas!');
+    }).catch(function(error) {
+        alert('Ocorreu um erro ao enviar as respostas.');
         console.error('Erro:', error);
     });
 }
-function doPost(e) {
-  var sheet = SpreadsheetApp.openById('16PQkpPICh5hwjIor9HeQ6LRHWiETfmOi_tJpiJ6EQyo').getSheetByName('Respostas'); // Altere 'SUA_PLANILHA_ID' e o nome da aba
-  var row = [];
-  
-  // Adicionar as respostas e os tempos para a planilha
-  row.push(e.parameters.nome, e.parameters.serie, e.parameters.data, e.parameters.resposta1, e.parameters.tempo1, e.parameters.resposta2, e.parameters.tempo2, e.parameters.resposta3, e.parameters.tempo3, e.parameters.resposta4, e.parameters.tempo4, e.parameters.resposta5, e.parameters.tempo5);
-  
-  sheet.appendRow(row); // Adiciona a nova linha
-  return ContentService.createTextOutput("Respostas registradas com sucesso.");
-}
+
+
 
