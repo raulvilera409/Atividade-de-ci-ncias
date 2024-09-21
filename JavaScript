@@ -80,7 +80,7 @@ function submitAnswers() {
     };
 
     // URL do Google Apps Script (substitua pela URL gerada pelo Apps Script)
-    var url = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+    var url = 'https://script.google.com/macros/s/AKfycbxGUk3D53X1xWExbWqeenBeO8xFg-0259yjwYl5vQsgqO20xnB3tU_bNk7f2pCIl3c6/exec';
 
     fetch(url, {
         method: 'POST',
