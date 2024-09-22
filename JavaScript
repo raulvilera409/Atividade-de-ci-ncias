@@ -3,7 +3,7 @@ function doPost(e) {
     // ID da planilha e abas relevantes
     var sheetID = "162P2kwnI9oANMrFV64kTtNGpEi7fdaRdqN-IPHK6N2Q";
     var sheet = SpreadsheetApp.openById(sheetID).getSheetByName("Página1");
-    var gabaritoSheet = SpreadsheetApp.openById(sheetID).getSheetByName("GABARITO");
+    var gabaritoSheet = SpreadsheetApp.openById(sheetID).getSheetByName("Página2");
     
     // Dados recebidos do formulário (JSON)
     var jsonData = JSON.parse(e.postData.contents);
