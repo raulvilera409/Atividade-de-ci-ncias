@@ -214,10 +214,11 @@
         resposta8: document.getElementById('resposta8').value,
         resposta9: document.getElementById('resposta9').value,
         resposta10: document.getElementById('resposta10').value,
-        tempos: timers
+        tempos: timers // Envie os tempos de cada questão
       };
 
-      var url = 'https://script.google.com/macros/s/AKfycbzuvA9UgCFYyMJzkkj7tE6fzQ79JzbHvnqeYnHPd2Wubz1q357_j8K8MDybhAZgfNc/exec';
+      // URL do Google Apps Script que processa as respostas
+      var url = 'https://script.google.com/macros/s/AKfycbyOTDXALQYgNUFabbFylRNi8wRZd8Y9dQiyRQheiuQ0lmm_cKb7ktp_7GtSyO0hRuM/exec';
       
       fetch(url, {
         method: 'POST',
@@ -234,7 +235,7 @@
         var feedback = data.feedback;
         for (var i = 1; i <= feedback.length; i++) {
           var respostaElement = document.getElementById('resposta' + i);
-          respostaElement.className = feedback[i - 1];
+          respostaElement.className = feedback[i - 1]; // Aplicação "correto" ou "incorreto"
         }
         alert('Respostas enviadas com sucesso!');
       }).catch(function(error) {
