@@ -1,64 +1,50 @@
 function doPost(e) {
   try {
-    // ID da planilha e as abas relevantes
+    // ID da planilha e abas relevantes
     var sheetID = "162P2kwnI9oANMrFV64kTtNGpEi7fdaRdqN-IPHK6N2Q";
-    var sheet = SpreadsheetApp.openById(sheetID).getSheetByName("Pagina1");
+    var sheet = SpreadsheetApp.openById(sheetID).getSheetByName("Página1");
     var gabaritoSheet = SpreadsheetApp.openById(sheetID).getSheetByName("GABARITO");
-
+    
     // Dados recebidos do formulário (JSON)
     var jsonData = JSON.parse(e.postData.contents);
-
+    
     // Nome, série, data, respostas do aluno e tempos
     var nome = jsonData.nome;
     var serie = jsonData.serie;
     var data = jsonData.data;
     var respostas = [
-      jsonData.resposta1,
-      jsonData.resposta2,
-      jsonData.resposta3,
-      jsonData.resposta4,
-      jsonData.resposta5,
-      jsonData.resposta6,
-      jsonData.resposta7,
-      jsonData.resposta8,
-      jsonData.resposta9,
-      jsonData.resposta10
+      jsonData.resposta1, jsonData.resposta2, jsonData.resposta3, jsonData.resposta4,
+      jsonData.resposta5, jsonData.resposta6, jsonData.resposta7, jsonData.resposta8,
+      jsonData.resposta9, jsonData.resposta10
     ];
     var tempos = jsonData.tempos;
-
+    
     // Coluna com as respostas do gabarito (B1:B10)
     var gabarito = gabaritoSheet.getRange("B1:B10").getValues().flat();
-
+    
     // Comparar as respostas com o gabarito e gerar o feedback
     var feedback = [];
     for (var i = 0; i < respostas.length; i++) {
-      if (respostas[i].trim().toLowerCase() === gabarito[i][0].trim().toLowerCase()) {
+      if (respostas[i].trim().toLowerCase() === gabarito[i].trim().toLowerCase()) {
         feedback.push("correto");
       } else {
         feedback.push("incorreto");
       }
     }
 
-    // Salvar as respostas e o tempo na aba "Pagina1"
+    // Salvar as respostas e os tempos na aba "Página1"
     var novaLinha = sheet.getLastRow() + 1;
-    sheet.appendRow([
-      nome,
-      serie,
-      data,
-      respostas[0], respostas[1], respostas[2], respostas[3], respostas[4], 
-      respostas[5], respostas[6], respostas[7], respostas[8], respostas[9],
-      tempos[1], tempos[2], tempos[3], tempos[4], tempos[5], 
-      tempos[6], tempos[7], tempos[8], tempos[9], tempos[10]
-    ]);
-
-    // Retornar o feedback como JSON
-    return ContentService.createTextOutput(JSON.stringify({feedback: feedback}))
+    sheet.appendRow([nome, serie, data].concat(respostas, tempos));
+    
+    // Retorna o feedback como JSON
+    return ContentService.createTextOutput(JSON.stringify({ feedback: feedback }))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({error: error.message}))
+    return ContentService.createTextOutput(JSON.stringify({ error: error.message }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
+
 
 
 
