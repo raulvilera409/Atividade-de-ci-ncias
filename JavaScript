@@ -25,7 +25,7 @@ function doPost(e) {
     // Comparar as respostas com o gabarito e gerar o feedback
     var feedback = [];
     for (var i = 0; i < respostas.length; i++) {
-      if (respostas[i].trim().toLowerCase() === gabarito[i].trim().toLowerCase()) {
+      if (respostas[i].trim().toLowerCase() === Página2[i].trim().toLowerCase()) {
         feedback.push("correto");
       } else {
         feedback.push("incorreto");
