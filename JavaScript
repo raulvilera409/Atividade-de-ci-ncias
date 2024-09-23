@@ -1,4 +1,4 @@
-
+<script>
     function submitAnswers() {
         var nome = document.getElementById('nome').value;
         var serie = document.getElementById('serie').value;
@@ -24,7 +24,7 @@
         localStorage.setItem('respostasAlunos', JSON.stringify(respostas));
 
         // Tente enviar as respostas para a planilha Google
-        var url = 'SUA_URL_DO_SERVIÇO_WEB'; // Substitua pela URL correta do Google Apps Script
+        var url = 'https://script.google.com/macros/s/AKfycbywhpZJxzktLEpPcHxwXkcssD51qv-QrRPUq4C_IcKN1ZveK9nliMk-jx7cZMGo40E/exec'; // Substitua pela URL correta do Google Apps Script
         fetch(url, {
             method: 'POST',
             headers: {
@@ -61,4 +61,4 @@
             alert('Respostas anteriores recuperadas. Tente enviá-las novamente.');
         }
     };
-
+</script>
