@@ -1,19 +1,17 @@
-fetch(url, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(respostas)
-}).then(function(response) {
-    if (!response.ok) {
-        throw new Error('Erro: ' + response.statusText);
-    }
-    return response.json();
-}).then(function(data) {
-    alert('Respostas enviadas com sucesso!');
-    localStorage.removeItem('respostasAlunos'); // Remove as respostas salvas após o sucesso
-}).catch(function(error) {
-    alert('Ocorreu um erro ao enviar as respostas: ' + error.message);
-});
+function doPost(e) {
+  // Obtém os dados enviados pelo formulário
+  var params = JSON.parse(e.postData.contents);
+  
+  // Aqui você pode processar os dados e salvar em uma planilha, por exemplo
+  var sheet = SpreadsheetApp.openById('162P2kwnI9oANMrFV64kTtNGpEi7fdaRdqN-IPHK6N2Q').getActiveSheet();
+  sheet.appendRow([params.nome, params.serie, params.data, params.resposta1, params.resposta2, params.tempos]);
+
+  // Retorna uma resposta para o cliente
+  return ContentService.createTextOutput(JSON.stringify({
+    status: 'success',
+    feedback: ['correto', 'incorreto', 'correto', 'correto', 'incorreto', 'correto', 'incorreto', 'correto', 'correto', 'correto']
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
 
 
