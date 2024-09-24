@@ -1,17 +1,33 @@
 function doPost(e) {
-  // Obtém os dados enviados pelo formulário
-  var params = JSON.parse(e.postData.contents);
-  
-  // Aqui você pode processar os dados e salvar em uma planilha, por exemplo
-  var sheet = SpreadsheetApp.openById('162P2kwnI9oANMrFV64kTtNGpEi7fdaRdqN-IPHK6N2Q').getActiveSheet();
-  sheet.appendRow([params.nome, params.serie, params.data, params.resposta1, params.resposta2, params.tempos]);
+  try {
+    var data = JSON.parse(e.postData.contents); // Parseia os dados recebidos
 
-  // Retorna uma resposta para o cliente
-  return ContentService.createTextOutput(JSON.stringify({
-    status: 'success',
-    feedback: ['correto', 'incorreto', 'correto', 'correto', 'incorreto', 'correto', 'incorreto', 'correto', 'correto', 'correto']
-  })).setMimeType(ContentService.MimeType.JSON);
+    // Acessa a planilha pelo ID
+    var sheet = SpreadsheetApp.openById('11WN9Pbz3aqMi20WkGtMr9p2YUL4jpVhfRyknBBS1K-0yPJrjTS-65BGe').getActiveSheet();
+    
+    // Adiciona uma nova linha na planilha com os dados recebidos
+    sheet.appendRow([
+      data.nome, data.serie, data.data,
+      data.resposta1, data.resposta2, data.resposta3,
+      data.resposta4, data.resposta5, data.resposta6,
+      data.resposta7, data.resposta8, data.resposta9, data.resposta10,
+      JSON.stringify(data.tempos) // Salva o tempo gasto em cada questão
+    ]);
+
+    // Retorna uma resposta de sucesso
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'success',
+      feedback: ['correto', 'incorreto', 'correto', 'incorreto', 'correto', 'incorreto', 'correto', 'incorreto', 'correto', 'correto']
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    // Em caso de erro, retorna a mensagem de erro
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: error.message
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
 }
+
 
 
 
