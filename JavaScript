@@ -1,64 +1,19 @@
-
-    function submitAnswers() {
-        var nome = document.getElementById('nome').value;
-        var serie = document.getElementById('serie').value;
-        var data = document.getElementById('data').value;
-
-        var respostas = {
-            nome: nome,
-            serie: serie,
-            data: data,
-            resposta1: document.getElementById('resposta1').value,
-            resposta2: document.getElementById('resposta2').value,
-            resposta3: document.getElementById('resposta3').value,
-            resposta4: document.getElementById('resposta4').value,
-            resposta5: document.getElementById('resposta5').value,
-            resposta6: document.getElementById('resposta6').value,
-            resposta7: document.getElementById('resposta7').value,
-            resposta8: document.getElementById('resposta8').value,
-            resposta9: document.getElementById('resposta9').value,
-            resposta10: document.getElementById('resposta10').value
-        };
-
-        // Salva as respostas no LocalStorage
-        localStorage.setItem('respostasAlunos', JSON.stringify(respostas));
-
-        // Tente enviar as respostas para a planilha Google
-        var url = 'https://script.google.com/macros/s/AKfycbyFuOuXfb-paCC4HupMnjoee8YOBOe3ACo9IkCYlIBrdA6CbclzN1WoFTGiHoYwV_s/exec'; // Substitua pela URL correta do Google Apps Script
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(respostas)
-        }).then(function(response) {
-            alert('Respostas enviadas com sucesso!');
-            localStorage.removeItem('respostasAlunos'); // Remove as respostas salvas após o sucesso
-        }).catch(function(error) {
-            alert('Ocorreu um erro ao enviar as respostas. As respostas foram salvas localmente.');
-        });
+fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(respostas)
+}).then(function(response) {
+    if (!response.ok) {
+        throw new Error('Erro: ' + response.statusText);
     }
+    return response.json();
+}).then(function(data) {
+    alert('Respostas enviadas com sucesso!');
+    localStorage.removeItem('respostasAlunos'); // Remove as respostas salvas após o sucesso
+}).catch(function(error) {
+    alert('Ocorreu um erro ao enviar as respostas: ' + error.message);
+});
 
-    // Verifica se há respostas salvas no LocalStorage e as recupera
-    window.onload = function() {
-        var savedRespostas = localStorage.getItem('respostasAlunos');
-        if (savedRespostas) {
-            var respostas = JSON.parse(savedRespostas);
-            document.getElementById('nome').value = respostas.nome;
-            document.getElementById('serie').value = respostas.serie;
-            document.getElementById('data').value = respostas.data;
-            document.getElementById('resposta1').value = respostas.resposta1;
-            document.getElementById('resposta2').value = respostas.resposta2;
-            document.getElementById('resposta3').value = respostas.resposta3;
-            document.getElementById('resposta4').value = respostas.resposta4;
-            document.getElementById('resposta5').value = respostas.resposta5;
-            document.getElementById('resposta6').value = respostas.resposta6;
-            document.getElementById('resposta7').value = respostas.resposta7;
-            document.getElementById('resposta8').value = respostas.resposta8;
-            document.getElementById('resposta9').value = respostas.resposta9;
-            document.getElementById('resposta10').value = respostas.resposta10;
-
-            alert('Respostas anteriores recuperadas. Tente enviá-las novamente.');
-        }
-    };
 
