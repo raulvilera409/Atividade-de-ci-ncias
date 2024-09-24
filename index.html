@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade Discursiva</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,7 +63,7 @@
 </head>
 <body>
 
-    <center><h1><b>AVALIAÇÃO DE CIÊNCIAS (3º BIMESTRE)</b></h1></center>
+   <center><h1><b>AVALIAÇÃO DE CIÊNCIAS (3º BIMESTRE)</b></h1></center>
 
     <form id="discursive-form">
 
@@ -80,52 +81,52 @@
 
         <!-- Questões Discursivas -->
         <div class="question">
-            <h3><b>1.</b> Explique como o isolamento geográfico pode levar à especiação, considerando o impacto das mudanças climáticas nos ambientes naturais.</h3>
+            <h3><b>1.</b> Mudanças climáticas globais têm gerado uma alteração nos habitats de diversas espécies...</h3>
             <textarea id="resposta1" name="resposta1" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>2.</b> Explique o processo evolutivo que pode ter levado à transformação dos membros anteriores de mamíferos terrestres nos atuais membros das baleias.</h3>
+            <h3><b>2.</b> Os fósseis indicam que as baleias modernas evoluíram de mamíferos terrestres...</h3>
             <textarea id="resposta2" name="resposta2" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>3.</b> Explique como o processo de seleção natural pode levar ao desenvolvimento de populações bacterianas resistentes a antibióticos.</h3>
+            <h3><b>3.</b> O uso indiscriminado de antibióticos tem causado o surgimento de bactérias resistentes...</h3>
             <textarea id="resposta3" name="resposta3" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>4.</b> Defina o conceito de órgãos análogos e explique como eles se relacionam com o processo de evolução convergente.</h3>
+            <h3><b>4.</b> Tanto as aves quanto os insetos desenvolveram a capacidade de voar...</h3>
             <textarea id="resposta4" name="resposta4" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>5.</b> Descreva o tipo de seleção natural envolvido no exemplo de pesos de bebês ao nascer e explique seu papel na manutenção de certas características em populações humanas.</h3>
+            <h3><b>5.</b> Estudos indicam que bebês com pesos muito baixos ou muito altos ao nascer...</h3>
             <textarea id="resposta5" name="resposta5" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>6.</b> Explique como a seleção disruptiva pode atuar sobre as populações, promovendo a diversificação de características.</h3>
+            <h3><b>6.</b> Em uma população de pássaros, indivíduos com plumagens muito claras ou muito escuras...</h3>
             <textarea id="resposta6" name="resposta6" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>7.</b> Explique como a seleção artificial observada por Darwin em pombos contribuiu para sua formulação da teoria da seleção natural.</h3>
+            <h3><b>7.</b> Charles Darwin observou que os criadores de pombos selecionavam ativamente...</h3>
             <textarea id="resposta7" name="resposta7" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>8.</b> Explique como o Neodarwinismo ampliou a teoria original de Darwin e inclua no seu argumento o papel das mutações e da recombinação genética na variabilidade das populações.</h3>
+            <h3><b>8.</b> A Teoria Sintética da Evolução, ou Neodarwinismo, integrou a teoria de Darwin...</h3>
             <textarea id="resposta8" name="resposta8" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>9.</b> Defina especiação simpátrica e explique como a diferenciação de hábitos alimentares pode levar à formação de novas espécies dentro de uma mesma área geográfica.</h3>
+            <h3><b>9.</b> Em um lago, uma população de peixes que antes se alimentava de um único tipo de alimento...</h3>
             <textarea id="resposta9" name="resposta9" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
         <div class="question">
-            <h3><b>10.</b> Utilizando o conceito de seleção natural, explique como pandemias podem influenciar a composição genética de uma população ao longo do tempo.</h3>
+            <h3><b>10.</b> Durante a pandemia de COVID-19, alguns grupos populacionais apresentaram maior resistência...</h3>
             <textarea id="resposta10" name="resposta10" placeholder="Digite sua resposta aqui..." required></textarea>
         </div>
 
@@ -155,11 +156,9 @@
             resposta10: document.getElementById('resposta10').value
         };
 
-        // Salva as respostas no LocalStorage
-        localStorage.setItem('respostasAlunos', JSON.stringify(respostas));
-
-        // URL correta do Google Apps Script
-        var url = 'https://script.google.com/macros/s/AKfycbxOcw5KoomKlPXm8_ZloZfcBAcJrll7QjZjZkvLAPeBOv6lY9aTfpUjaEZCpZxdZS8/exec'; 
+        // ID da planilha do Google
+        var spreadsheetId = '162P2kwnI9oANMrFV64kTtNGpEi7fdaRdqN-IPHK6N2Q';
+        var url = 'https://script.google.com/macros/s/AKfycbxEgBgzn6fSGP8C9ZVTdWhyXGqd66Kxl5L8bsX4lkEUGefpkmjTqyVgh70CltRM72I/exec'; // Substitua pela URL correta do Google Apps Script
 
         fetch(url, {
             method: 'POST',
@@ -170,12 +169,13 @@
         }).then(function(response) {
             if (response.ok) {
                 alert('Respostas enviadas com sucesso!');
-                localStorage.removeItem('respostasAlunos'); // Remove as respostas salvas após o sucesso
+                localStorage.removeItem('respostasAlunos');
             } else {
-                alert('Falha ao enviar as respostas. Resposta do servidor: ' + response.statusText);
+                throw new Error('Erro ao enviar as respostas');
             }
         }).catch(function(error) {
             alert('Ocorreu um erro ao enviar as respostas. As respostas foram salvas localmente.');
+            localStorage.setItem('respostasAlunos', JSON.stringify(respostas));
         });
     }
 
@@ -198,13 +198,14 @@
             document.getElementById('resposta9').value = respostas.resposta9;
             document.getElementById('resposta10').value = respostas.resposta10;
 
-            alert('Respostas anteriores recuperadas. Tente enviá-las novamente.');
+            alert('Respostas anteriores foram restauradas.');
         }
     };
     </script>
 
 </body>
 </html>
+
 
 
 
