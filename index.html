@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atividade Discursiva</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Biblioteca Chart.js -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,32 +61,25 @@
             background-color: #45a049;
         }
 
-        /* Feedback visual de respostas */
-        .correto {
-            background-color: lightblue;
-            color: blue;
-        }
-
-        .incorreto {
-            background-color: lightcoral;
-            color: red;
-        }
-
-        /* Posicionamento do relógio no topo direito */
-        .question {
-            position: relative;
-            margin-bottom: 20px;
-            padding-right: 60px; /* Espaço para o relógio */
-        }
-
+        /* Relógios */
         .clock {
             position: absolute;
             right: 10px;
             top: 10px;
             font-size: 14px;
             font-weight: bold;
+            border: 2px solid #000;
+            border-radius: 50%; /* Formato de círculo */
+            padding: 5px;
+            width: 50px;
+            text-align: center;
         }
 
+        .question {
+            position: relative;
+            margin-bottom: 20px;
+            padding-right: 60px; /* Espaço para o relógio */
+        }
     </style>
 </head>
 <body>
@@ -95,7 +87,6 @@
     <center><h1><b>AVALIAÇÃO DE CIÊNCIAS (3º BIMESTRE)</b></h1></center>
 
     <form id="discursive-form">
-
         <!-- Cabeçalho com nome, série e data -->
         <div class="header-inputs">
             <label for="nome">Nome:</label>
@@ -117,14 +108,14 @@
         </div>
 
         <div class="question">
-            <h3><b>2.</b> Os fósseis indicam que as baleias modernas evoluíram de mamíferos terrestres há milhões de anos. Seus membros anteriores são considerados órgãos homólogos aos membros de outros mamíferos, como os braços humanos. Utilizando o conceito de órgãos homólogos, explique o processo evolutivo que pode ter levado à transformação dos membros anteriores de mamíferos terrestres nos atuais membros das baleias.
+            <h3><b>2.</b> Os fósseis indicam que as baleias modernas evoluíram de mamíferos terrestres há milhões de anos. Seus membros anteriores são considerados órgãos homólogos aos membros de outros mamíferos, como os braços humanos. Explique o processo evolutivo que pode ter levado à transformação dos membros anteriores de mamíferos terrestres nos atuais membros das baleias.
                 <span id="clock2" class="clock">00:00</span>
             </h3>
             <textarea id="resposta2" name="resposta2" placeholder="Digite sua resposta aqui..." required onfocus="startClock(2)" onblur="stopClock(2)"></textarea>
         </div>
 
         <div class="question">
-            <h3><b>3.</b> O uso indiscriminado de antibióticos tem causado o surgimento de bactérias resistentes a medicamentos, representando um grande desafio à saúde pública global. Esse fenômeno é explicado pela seleção natural. Explique como o processo de seleção natural pode levar ao desenvolvimento de populações bacterianas resistentes a antibióticos.
+            <h3><b>3.</b> O uso indiscriminado de antibióticos tem causado o surgimento de bactérias resistentes a medicamentos. Explique como o processo de seleção natural pode levar ao desenvolvimento de populações bacterianas resistentes a antibióticos.
                 <span id="clock3" class="clock">00:00</span>
             </h3>
             <textarea id="resposta3" name="resposta3" placeholder="Digite sua resposta aqui..." required onfocus="startClock(3)" onblur="stopClock(3)"></textarea>
@@ -138,49 +129,48 @@
         </div>
 
         <div class="question">
-            <h3><b>5.</b> Estudos indicam que bebês com pesos muito baixos ou muito altos ao nascer têm menor chance de sobreviver em comparação com bebês de peso intermediário. Esse fato ilustra um tipo de seleção natural. Descreva o tipo de seleção natural envolvido nesse exemplo e explique seu papel na manutenção de certas características em populações humanas.
+            <h3><b>5.</b> Estudos indicam que bebês com pesos muito baixos ou muito altos ao nascer têm menor chance de sobreviver em comparação com bebês de peso intermediário. Explique o tipo de seleção natural envolvido nesse exemplo e como ele mantém características em populações humanas.
                 <span id="clock5" class="clock">00:00</span>
             </h3>
             <textarea id="resposta5" name="resposta5" placeholder="Digite sua resposta aqui..." required onfocus="startClock(5)" onblur="stopClock(5)"></textarea>
         </div>
 
         <div class="question">
-            <h3><b>6.</b> Em uma população de pássaros, indivíduos com plumagens muito claras ou muito escuras têm maior sobrevivência do que aqueles com plumagem intermediária, devido à sua melhor camuflagem em ambientes distintos. Explique como a seleção disruptiva pode atuar sobre as populações, promovendo a diversificação de características.
+            <h3><b>6.</b> Em uma população de pássaros, indivíduos com plumagens muito claras ou muito escuras têm maior sobrevivência do que aqueles com plumagem intermediária, devido à sua melhor camuflagem. Explique como a seleção disruptiva pode atuar sobre as populações, promovendo a diversificação de características.
                 <span id="clock6" class="clock">00:00</span>
             </h3>
             <textarea id="resposta6" name="resposta6" placeholder="Digite sua resposta aqui..." required onfocus="startClock(6)" onblur="stopClock(6)"></textarea>
         </div>
 
         <div class="question">
-            <h3><b>7.</b> Charles Darwin observou que os criadores de pombos selecionavam ativamente os animais com características desejáveis para a reprodução. Ele usou essas observações para desenvolver sua teoria da seleção natural. Explique como a seleção artificial observada por Darwin em pombos contribuiu para sua formulação da teoria da seleção natural.
+            <h3><b>7.</b> Charles Darwin observou que criadores de pombos selecionavam os animais com características desejáveis. Explique como a seleção artificial contribuiu para a formulação da teoria da seleção natural.
                 <span id="clock7" class="clock">00:00</span>
             </h3>
             <textarea id="resposta7" name="resposta7" placeholder="Digite sua resposta aqui..." required onfocus="startClock(7)" onblur="stopClock(7)"></textarea>
         </div>
 
         <div class="question">
-            <h3><b>8.</b> A Teoria Sintética da Evolução, ou Neodarwinismo, integrou a teoria de Darwin com os conhecimentos de genética, como a transmissão de características hereditárias e as mutações. Explique como o Neodarwinismo ampliou a teoria original de Darwin e inclua no seu argumento o papel das mutações e da recombinação genética na variabilidade das populações.
+            <h3><b>8.</b> A Teoria Sintética da Evolução, ou Neodarwinismo, integrou a teoria de Darwin com a genética. Explique como o Neodarwinismo ampliou a teoria original e inclua o papel das mutações e recombinação genética na variabilidade.
                 <span id="clock8" class="clock">00:00</span>
             </h3>
             <textarea id="resposta8" name="resposta8" placeholder="Digite sua resposta aqui..." required onfocus="startClock(8)" onblur="stopClock(8)"></textarea>
         </div>
 
         <div class="question">
-            <h3><b>9.</b> Em um lago, uma população de peixes vive em uma área bem iluminada, enquanto outra população vive em uma área escura e profunda. Com o tempo, essas populações desenvolveram diferenças significativas em suas cores e padrões de comportamento. Explique como o isolamento geográfico e a seleção natural podem ter contribuído para a formação de duas subespécies distintas de peixes nesse ambiente.
+            <h3><b>9.</b> Uma população de peixes que se alimentava de um único tipo de alimento desenvolveu duas subpopulações com preferências alimentares distintas. Defina especiação simpátrica e explique como a diferenciação de hábitos alimentares pode levar à formação de novas espécies.
                 <span id="clock9" class="clock">00:00</span>
             </h3>
             <textarea id="resposta9" name="resposta9" placeholder="Digite sua resposta aqui..." required onfocus="startClock(9)" onblur="stopClock(9)"></textarea>
         </div>
 
         <div class="question">
-            <h3><b>10.</b> Durante a pandemia de COVID-19, algumas pessoas foram mais resistentes ao vírus devido a fatores genéticos ou comportamentais, enquanto outros foram mais suscetíveis. Utilizando o conceito de seleção natural, explique como pandemias podem influenciar a composição genética de uma população ao longo do tempo.
+            <h3><b>10.</b> Durante a pandemia de COVID-19, alguns grupos populacionais apresentaram maior resistência ao vírus. Explique como pandemias podem influenciar a composição genética de uma população ao longo do tempo.
                 <span id="clock10" class="clock">00:00</span>
             </h3>
             <textarea id="resposta10" name="resposta10" placeholder="Digite sua resposta aqui..." required onfocus="startClock(10)" onblur="stopClock(10)"></textarea>
         </div>
 
         <button type="button" onclick="submitAnswers()">ENVIAR</button>
-
     </form>
 
     <script>
@@ -233,7 +223,7 @@
         };
 
         // URL do Google Apps Script que processa as respostas
-        var url = 'https://script.google.com/macros/s/AKfycbziPJ2mpnV4hl7pgNG84eNGrQifslnK7xNA9EKFEVOUUe92jEP4Rcom10hfqKsv4ME/exec';
+        var url = 'https://script.google.com/macros/s/AKfycbyT-gQsXmtmv7k0eQfwK_8jcPVEMYXJ3YUiavOAHfp9_PX17_WiqFoNJD4K3ME0TAQ/exec'; // Substitua pelo URL do seu script
 
         fetch(url, {
             method: 'POST',
@@ -263,6 +253,7 @@
 
 </body>
 </html>
+
 
 
 
