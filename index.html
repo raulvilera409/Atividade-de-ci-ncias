@@ -8,13 +8,14 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background: linear-gradient(to bottom, #FFD580, #B2FF99);
-            color: black;
+            background: linear-gradient(to bottom, #333333, #111111);
+            color: #EDEDED;
         }
 
         h1 {
             text-align: center;
             font-weight: normal;
+            color: #FFA500;
         }
 
         h3 {
@@ -24,6 +25,7 @@
 
         label, button, textarea {
             font-weight: normal;
+            color: #FFD700;
         }
 
         .header-inputs {
@@ -35,7 +37,8 @@
             padding: 10px;
             margin-bottom: 40px;
             font-size: 12px;
-            color: black;
+            color: #000; /* Text color black */
+            background-color: #FFF; /* Input fields white */
         }
 
         textarea {
@@ -68,7 +71,8 @@
             top: 10px;
             font-size: 14px;
             font-weight: bold;
-            border: 2px solid #000;
+            color: #FFA500;
+            border: 2px solid #FFD700;
             border-radius: 50%;
             padding: 5px;
             width: 50px;
@@ -79,6 +83,13 @@
             position: relative;
             margin-bottom: 20px;
             padding-right: 60px;
+        }
+
+        /* Loading message */
+        #loading {
+            text-align: center;
+            font-size: 18px;
+            color: #FFD700;
         }
     </style>
 </head>
@@ -171,6 +182,7 @@
         </div>
 
         <button type="button" onclick="submitAnswers()">ENVIAR</button>
+        <div id="loading" style="display:none;">Enviando respostas...</div>
     </form>
 
     <script>
@@ -199,8 +211,35 @@
         intervals[questionId] = null;
     }
 
+    // Função para validar o formulário
+    function validateForm() {
+        const nome = document.getElementById('nome').value.trim();
+        const serie = document.getElementById('serie').value.trim();
+        const data = document.getElementById('data').value.trim();
+
+        if (!nome || !serie || !data) {
+            alert('Por favor, preencha todos os campos obrigatórios!');
+            return false;
+        }
+
+        return true;
+    }
+
+    // Função para limpar o formulário
+    function clearForm() {
+        document.getElementById('discursive-form').reset();
+        timers = {}; // Reseta os timers
+        intervals = {}; // Reseta os intervalos
+    }
+
     // Função para enviar as respostas com o tempo gasto em cada questão
     function submitAnswers() {
+        if (!validateForm()) {
+            return;
+        }
+
+        showLoading(); // Exibe a mensagem de carregamento
+
         var nome = document.getElementById('nome').value;
         var serie = document.getElementById('serie').value;
         var data = document.getElementById('data').value;
@@ -223,7 +262,7 @@
         };
 
         // URL do Google Apps Script que processa as respostas
-        var url = 'https://script.google.com/macros/s/AKfycbyT-gQsXmtmv7k0eQfwK_8jcPVEMYXJ3YUiavOAHfp9_PX17_WiqFoNJD4K3ME0TAQ/exec';
+        var url = 'https://script.google.com/macros/s/AKfycbzqdFAOvWBooHWVSUOOMFgtVS6ty6vX4bASk0-RroR6n4ZDfiyk3s1OtdQ_z42vAziX/exec';
 
         fetch(url, {
             method: 'POST',
@@ -234,20 +273,35 @@
         }).then(function(response) {
             return response.json();
         }).then(function(data) {
+            hideLoading(); // Esconde a mensagem de carregamento
             if (data.status === 'success') {
                 alert('Respostas enviadas com sucesso!');
+                clearForm();
             } else {
                 alert('Erro ao enviar respostas: ' + data.message);
             }
         }).catch(function(error) {
+            hideLoading();
             alert('Ocorreu um erro ao enviar as respostas.');
             console.error('Erro:', error);
         });
     }
+
+    function showLoading() {
+        document.getElementById('loading').style.display = 'block';
+    }
+
+    function hideLoading() {
+        document.getElementById('loading').style.display = 'none';
+    }
+
     </script>
 
 </body>
 </html>
+
+
+
 
 
 
