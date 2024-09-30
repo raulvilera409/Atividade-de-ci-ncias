@@ -262,7 +262,7 @@
         };
 
         // URL do Google Apps Script que processa as respostas
-        var url = 'https://script.google.com/macros/s/AKfycbzqdFAOvWBooHWVSUOOMFgtVS6ty6vX4bASk0-RroR6n4ZDfiyk3s1OtdQ_z42vAziX/exec';
+        var url = 'https://script.google.com/macros/s/AKfycbyT-gQsXmtmv7k0eQfwK_8jcPVEMYXJ3YUiavOAHfp9_PX17_WiqFoNJD4K3ME0TAQ/exec';
 
         fetch(url, {
             method: 'POST',
@@ -274,6 +274,7 @@
             return response.json();
         }).then(function(data) {
             hideLoading(); // Esconde a mensagem de carregamento
+            console.log('Resposta recebida do servidor:', data); // Depuração
             if (data.status === 'success') {
                 alert('Respostas enviadas com sucesso!');
                 clearForm();
@@ -282,8 +283,8 @@
             }
         }).catch(function(error) {
             hideLoading();
-            alert('Ocorreu um erro ao enviar as respostas.');
-            console.error('Erro:', error);
+            console.error('Erro ao enviar respostas:', error); // Depuração
+            alert('Ocorreu um erro ao enviar as respostas. Veja o console para mais detalhes.');
         });
     }
 
