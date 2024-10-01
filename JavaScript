@@ -3,3 +3,22 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON)
         .setHeader('Access-Control-Allow-Origin', '*');
 }
+fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    mode: 'cors',
+    body: JSON.stringify(respostas)
+})
+function doPost(e) {
+    const response = {
+        status: 'success',
+        message: 'Dados recebidos com sucesso'
+    };
+    return ContentService.createTextOutput(JSON.stringify(response))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader('Access-Control-Allow-Origin', '*')
+        .setHeader('Access-Control-Allow-Methods', 'POST')
+        .setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
