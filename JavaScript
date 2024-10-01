@@ -1,35 +1,5 @@
 function doPost(e) {
-  try {
-    var data = JSON.parse(e.postData.contents); // Parseia os dados recebidos
-
-    // Abre a planilha pelo ID e obtém a primeira aba
-    var sheet = SpreadsheetApp.openById('162P2kwnI9oANMrFV64kTtNGpEi7fdaRdqN-IPHK6N2Q').getActiveSheet();
-
-    // Adiciona os dados recebidos como uma nova linha na planilha
-    sheet.appendRow([
-      data.nome, data.serie, data.data,
-      data.resposta1, data.resposta2, data.resposta3,
-      data.resposta4, data.resposta5, data.resposta6,
-      data.resposta7, data.resposta8, data.resposta9, data.resposta10,
-      JSON.stringify(data.tempos) // Salva os tempos de resposta como JSON
-    ]);
-
-    // Retorna uma resposta de sucesso
-    return ContentService.createTextOutput(JSON.stringify({
-      status: 'success',
-      feedback: ['correto', 'incorreto', 'correto', 'correto', 'incorreto', 'correto', 'incorreto', 'correto', 'correto', 'correto']
-    })).setMimeType(ContentService.MimeType.JSON);
-  } catch (error) {
-    // Retorna um erro caso algo dê errado
-    return ContentService.createTextOutput(JSON.stringify({
-      status: 'error',
-      message: error.message
-    })).setMimeType(ContentService.MimeType.JSON);
-  }
+    return ContentService.createTextOutput(JSON.stringify({status: 'success'}))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader('Access-Control-Allow-Origin', '*');
 }
-
-
-
-
-
-
