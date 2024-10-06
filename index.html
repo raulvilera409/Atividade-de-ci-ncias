@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,43 +13,41 @@
             background: linear-gradient(to bottom, #333333, #111111);
             color: #EDEDED;
         }
-
-        h1 {
+        h1, h2 {
             text-align: center;
-            font-weight: normal;
-            color: #FFA500;
+            font-weight: bold;
         }
-
+        h1 {
+            font-size: 50px;
+        }
+        h2 {
+            font-size: 20px;
+        }
         h3 {
             font-weight: normal;
             margin: 0;
         }
-
         label, button, textarea {
             font-weight: normal;
             color: #FFD700;
         }
-
         .header-inputs {
             margin-bottom: 10px;
         }
-
         input, textarea {
             width: 25%;
             padding: 10px;
             margin-bottom: 40px;
             font-size: 12px;
-            color: #000; /* Text color black */
-            background-color: #FFF; /* Input fields white */
+            color: #000;
+            background-color: #FFF;
         }
-
         textarea {
             width: 100%;
             height: 250px;
             margin-top: 10px;
             font-size: 16px;
         }
-
         button {
             display: block;
             margin: 20px auto;
@@ -59,12 +59,9 @@
             font-size: 14px;
             font-weight: normal;
         }
-
         button:hover {
             background-color: #45a049;
         }
-
-        /* Relógios com contorno circular */
         .clock {
             position: absolute;
             right: 10px;
@@ -78,44 +75,147 @@
             width: 50px;
             text-align: center;
         }
-
         .question {
             position: relative;
             margin-bottom: 20px;
             padding-right: 60px;
         }
-
-        /* Loading message */
         #loading {
             text-align: center;
             font-size: 18px;
             color: #FFD700;
         }
+        select#serie {
+            width: 60px;
+            height: 40px;
+            padding: 5px;
+            font-size: 14px;
+            color: #000;
+            background-color: #FFF;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+        }
     </style>
+    <script>
+        window.onload = function() {
+            const dataInput = document.getElementById('data');
+            const today = new Date().toISOString().split('T')[0];
+            dataInput.value = today;
+        }
+    </script>
 </head>
 <body>
+   
+        <p style="text-align: left;"><B>E.E. "PROFª WANDA MASCAGNI DE SÁ"<B></p>
 
-    <center><h1><b>AVALIAÇÃO DE CIÊNCIAS (3º BIMESTRE)</b></h1></center>
+        <BR><h2><b>AVALIAÇÃO DE CIÊNCIAS (3º BIMESTRE)</b></h2><BR><BR>
+    </center>
 
     <form id="discursive-form">
         <!-- Cabeçalho com nome, série e data -->
         <div class="header-inputs">
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" placeholder="Digite seu nome aqui..." required>
+            <label for="nome"><B>NOME:<B></label>
+            <input list="nomes" id="nome" name="nome" placeholder="Digite seu nome aqui..." required>
+            <datalist id="nomes">
+                <!-- Lista de nomes (exemplo) -->
+            </datalist>
 
-            <label for="serie">Série:</label>
-            <input type="text" id="serie" name="serie" placeholder="Digite sua série..." required>
+            <label for="serie"><B>SERIE:<B></label>
+            <select id="serie" name="serie" required>
+                <option value="">Selecione...</option>
+                <option value="9°A">9°A</option>
+                <option value="9°B">9°B</option>
+            </select>
 
-            <label for="data">Data:</label>
+            <label for="data"><B>DATA:<B></label>
             <input type="date" id="data" name="data" required>
         </div>
 
-        <!-- Questões Discursivas com Relógio -->
+        <!-- Questões Discursivas -->
+        <!-- As questões seguem aqui conforme o exemplo anterior -->
+    </form>
+</body>
+            <datalist id="nomes"><select>
+                <option value="ALÍCIA LARA DE OLIVEIRA RICCI">
+                <option value="ANGELINA MUNHOZ NAGLIATI">
+                <option value="ANTONIO AUGUSTO CAMPOS DE FREITAS RODRIGUES">
+                <option value="BEATRIZ DE SOUZA RODRIGUES">
+                <option value="BEATRIZ PEREIRA PONTES">
+                <option value="DAVÍ ALMEIDA LIMA">
+                <option value="EMILY VICTÓRIA SILVA OLIVEIRA">
+                <option value="GIULLIA GONÇALVES SILVA">
+                <option value="HELIO HENRIQUE LAMBERT VIEIRA">
+                <option value="HENZZO VICTOR DA ROCHA TRINDADE">
+                <option value="ISABELLA DIAS DE LIMA">
+                <option value="ISABELLY FATIMA TRIANA DA SILVA">
+                <option value="IZABELLY MARCOLINO DA SILVA">
+                <option value="JOSÉ SAMUEL PEREIRA ALVES">
+                <option value="JULIA ARAUJO DE LIMA">
+                <option value="JULIANA SILVA DE LIMA NEVES">
+                <option value="LAIS MIKAELLY ROCHA SILVA">
+                <option value="LIVIA SOARES SILVA LOPES">
+                <option value="LORRANY VITÓRIA CABRAL RODRIGUES">
+                <option value="MARIA LUIZA AZEVEDO CARVALHO">
+                <option value="MARIAH LUIZA DO NASCIMENTO CARVALHO">
+                <option value="NATALY CARVALHO ALVARENGA">
+                <option value="NICKOLAS DE SOUZA SILVA">
+                <option value="RAYANE SAMIRA ANDRADE DA SILVA">
+                <option value="RIAN HENRIQUE RODRIGUES DA SILVA">
+                <option value="RYHANA FRANCISCO BRANDÃO">
+                <option value="SERGIO JUNIOR DE ASSIS SILVA">
+                <option value="VICTOR HUGO DUARTE DA SILVA">
+                <option value="YASMIN BATISTA DE SOUZA">
+                <option value="CATHARINA KESS RUBIO MENDES">
+                <option value="JENNIFER CARVALHO COSTA">
+                <option value="MATHEUS ELIAS HADDAD DOS SANTOS">
+                <option value="WYLLIAN HENRIQUE VIEIRA LIMA">
+                <option value="LEANDRO GOMES DA SILVA">
+                <option value="MANUELA VITORIA NOVAES MENDES">
+                <option value="ANABELL MARTINEZ FARINA">
+                <option value="ANA BEATRIZ MOURA AMARO OLIVEIRA">
+                <option value="ARTHUR FERREIRA DE ANDRADE">
+                <option value="CAUÃ FERREIRA AMORIM XIMENES DE SOUZA">
+                <option value="EDUARDO JOSE MARAIMA GRIBORIO">
+                <option value="ERIKA MORAES CARDOSO">
+                <option value="GIOVANA RABELO GUIMARÃES">
+                <option value="GUILHERME HENRIQUE VIEIRA">
+                <option value="ISABELA PAULINO BELTRAMI">
+                <option value="ISABELLA FERNANDA DE SOUZA LIMA">
+                <option value="ISABELLA MONTEIRO BARCELLOS">
+                <option value="ISABELY NICOLY CARMO RODRIGUÃS">
+                <option value="JOÃO PEDRO DA SILVA SANTOS">
+                <option value="KAUÃ VICTOR MALAQUIAS LIMA">
+                <option value="LARISSA DA SILVA FERREIRA">
+                <option value="LARISSA VIEIRA VENANCIO">
+                <option value="LAYS RODRIGUES DA SILVA">
+                <option value="MANUELLE APARECIDA DOS SANTOS">
+                <option value="MELISSA ALMEIDA ASSIS">
+                <option value="PEDRO HEITOR DE SOUZA FERNANDES">
+                <option value="PEDRO HENRIQUE MARTINS DA SILVA">
+                <option value="RAFAELA ROCHA ROCCO">
+                <option value="RAPHAELA YASMIN MENDES ALVES">
+                <option value="RAYSSA KAROLLYN DIAS LEFEVRE">
+                <option value="RENAN BARBOZA DE OLIVEIRA">
+                <option value="RENAN PEREIRA GONZALES">
+                <option value="SABRINA DE OLIVEIRA MACEDO">
+                <option value="SABRINA VICTÃRIA DE SOUZA ALMEIDA">
+                <option value="SOPHIA VITÃRIA DE BARROS SILVA">
+                <option value="TONNY GASPAR OLMEDO GONZALEZ">
+                <option value="YASMIM SANTOS DA SILVA">
+                <option value="VINICIUS FERREIRA DA SILVA">
+                <option value="MARCELO HENRIQUE ZONIN PEREIRA">
+                <option value="THAIQUE MONIQUE MARTINS DA SILVA">
+                <option value="KAUAN REPULIO DE LIMA"></select>
+            </datalist>
+
+ 
+
+
+        <!-- Questões Discursivas -->
         <div class="question">
-            <h3><b>1.</b> Mudanças climáticas globais têm gerado uma alteração nos habitats de diversas espécies. Explique como o isolamento geográfico pode levar à especiação, considerando o impacto das mudanças climáticas.
-                <span id="clock1" class="clock">00:00</span>
-            </h3>
-            <textarea id="resposta1" name="resposta1" placeholder="Digite sua resposta aqui..." required onfocus="startClock(1)" onblur="stopClock(1)"></textarea>
+            <h3><b>1.</b> Explique como o isolamento geográfico pode levar à especiação, considerando o impacto das mudanças climáticas.<span id="clock8" class="clock">00:00</span>
+            </h3></h3>
+            <textarea id="resposta1" name="resposta1" required></textarea>
         </div>
 
         <div class="question">
@@ -262,7 +362,7 @@
         };
 
         // URL do Google Apps Script que processa as respostas
-        var url = 'https://script.google.com/macros/s/AKfycbwnujcT2rV-CwLwblTjJoeny9rAcXvR3699c7782PT72whUsTKSv913hR1GBrUb6RPx/exec';
+        var url = 'https://script.google.com/macros/s/AKfycbyT-gQsXmtmv7k0eQfwK_8jcPVEMYXJ3YUiavOAHfp9_PX17_WiqFoNJD4K3ME0TAQ/exec';
 
         fetch(url, {
             method: 'POST',
@@ -274,7 +374,6 @@
             return response.json();
         }).then(function(data) {
             hideLoading(); // Esconde a mensagem de carregamento
-            console.log('Resposta recebida do servidor:', data); // Depuração
             if (data.status === 'success') {
                 alert('Respostas enviadas com sucesso!');
                 clearForm();
@@ -283,8 +382,8 @@
             }
         }).catch(function(error) {
             hideLoading();
-            console.error('Erro ao enviar respostas:', error); // Depuração
-            alert('Ocorreu um erro ao enviar as respostas. Veja o console para mais detalhes.');
+            alert('Ocorreu um erro ao enviar as respostas.');
+            console.error('Erro:', error);
         });
     }
 
@@ -300,6 +399,10 @@
 
 </body>
 </html>
+
+
+
+
 
 
 
