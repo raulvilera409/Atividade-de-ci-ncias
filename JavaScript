@@ -1,24 +1,73 @@
 function doPost(e) {
-    return ContentService.createTextOutput(JSON.stringify({status: 'success'}))
-        .setMimeType(ContentService.MimeType.JSON)
-        .setHeader('Access-Control-Allow-Origin', '*');
+  var sheet = SpreadsheetApp.openById("1ZV9uKO51hilbtC9eIqynn0rme-z3cGrgAqx1-aEMAoY").getSheetByName("Página1");
+  var data = e.parameter;
+  
+  sheet.appendRow([data.nome, data.serie, data.data, data.resposta1, data.resposta2, data.resposta3, 
+                   data.resposta4, data.resposta5, data.resposta6, data.resposta7, data.resposta8, 
+                   data.resposta9, data.resposta10]);
+  
+  return ContentService.createTextOutput("Respostas recebidas com sucesso!");
 }
-fetch(url, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    mode: 'cors',
-    body: JSON.stringify(respostas)
-})
-function doPost(e) {
-    const response = {
-        status: 'success',
-        message: 'Dados recebidos com sucesso'
+function submitAnswers() {
+    if (!validateForm()) {
+        return;
+    }
+
+    showLoading(); // Exibe a mensagem de carregamento
+
+    var nome = document.getElementById('nome').value;
+    var serie = document.getElementById('serie').value;
+    var data = document.getElementById('data').value;
+
+    // Captura todas as respostas
+    var respostas = {
+        nome: nome,
+        serie: serie,
+        data: data,
+        resposta1: document.getElementById('resposta1').value,
+        resposta2: document.getElementById('resposta2').value,
+        resposta3: document.getElementById('resposta3').value,
+        resposta4: document.getElementById('resposta4').value,
+        resposta5: document.getElementById('resposta5').value,
+        resposta6: document.getElementById('resposta6').value,
+        resposta7: document.getElementById('resposta7').value,
+        resposta8: document.getElementById('resposta8').value,
+        resposta9: document.getElementById('resposta9').value,
+        resposta10: document.getElementById('resposta10').value
     };
-    return ContentService.createTextOutput(JSON.stringify(response))
-        .setMimeType(ContentService.MimeType.JSON)
-        .setHeader('Access-Control-Allow-Origin', '*')
-        .setHeader('Access-Control-Allow-Methods', 'POST')
-        .setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Envia o formulário para o Google Apps Script
+    fetch(''https://script.google.com/macros/s/AKfycbyEglHbBl7Rwr3vsJzQ22PPhkn_t4vKGdpAtMkZpVWmXqY08olyziF7TLIxtKXiWQw/exec', {
+        method: 'POST',
+        body: new URLSearchParams(respostas),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+    .then(response => response.text())
+    .then(text => {
+        alert(text); // Mensagem de sucesso
+        hideLoading(); // Esconde a mensagem de carregamento
+        clearForm(); // Limpa o formulário
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        hideLoading();
+    });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
